@@ -8,6 +8,8 @@ Created on Mon Mar 26 14:37:08 2018
 import argparse
 import random
 import parseur
+import recipe
+
 
 def discussion_mode_1(parole, old_backchannels):
     
@@ -46,20 +48,20 @@ def discussion_mode_2(parole, old_backchannels):
         for mot in health:
             compteur[0] += phrase.count(mot)
                     
-            for mot in family:
-                compteur[1] += phrase.count(mot)
+        for mot in family:
+            compteur[1] += phrase.count(mot)
                     
-            for mot in money:
-                compteur[2] += phrase.count(mot)
+        for mot in money:
+            compteur[2] += phrase.count(mot)
                     
-            for mot in lazy:
-                compteur[3] += phrase.count(mot)
+        for mot in lazy:
+            compteur[3] += phrase.count(mot)
                     
-            for mot in hearthstone:
-                compteur[4] += phrase.count(mot)
+        for mot in hearthstone:
+            compteur[4] += phrase.count(mot)
             
-            for mot in hello:
-                compteur[5] += phrase.count(mot)
+        for mot in hello:
+            compteur[5] += phrase.count(mot)
             
         print(compteur)           
             
@@ -89,12 +91,15 @@ def discussion_mode_2(parole, old_backchannels):
             
         return new_backchannels
 
+def discussion_mode_3(parole, old_backchannels):
+    
+
 
 # _____________________________________________________________________________
 
 if __name__ == "__main__":
     
-    print("***CUISTOBOT***\n")    
+    print("***CUISTOBOT***\n")
     
     parser = argparse.ArgumentParser()
     parser.add_argument('mode')
@@ -118,6 +123,4 @@ if __name__ == "__main__":
                 parole = "Au revoir."
         
         if(parole == "Bye."):
-            print("[ChatBot] "+"Bye.")
-            
-    
+            print("[ChatBot] "+"Bye.")   

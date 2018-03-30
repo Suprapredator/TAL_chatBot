@@ -15,7 +15,7 @@ def segment_into_sents(paragraph):
 					debut = i+1;
 		i = i+1;
 	
-	if paragraph[-1] != '.' or paragraph[-1] != '!' or paragraph[-1] != '?':
+	if paragraph[len(paragraph)-1] != '.' and paragraph[len(paragraph)-1] != '!' and paragraph[len(paragraph)-1] != '?':
 		list_phrase.append(paragraph[debut:]);
 
 	for i in range(0, len(list_phrase)):
@@ -49,7 +49,7 @@ def tokenise(sentence, language):
 	sentence_tokenised.append(sentence[debut:]);
 
 		
-	return sentence_tokenised
+	return lowercase_sentence(sentence_tokenised)
 			
 
 def lowercase_sentence(sentence):
@@ -59,6 +59,11 @@ def lowercase_sentence(sentence):
 	
 	return sentence;
 
+def nettoyage(sentences):
+    for sentence in sentences:
+        while(sentence.count("") > 0):
+            sentence.remove("")
+
 def parsage(parole):
     if parole != "":
         test = segment_into_sents(parole);
@@ -66,6 +71,8 @@ def parsage(parole):
         
         for i in test:
         	res.append(tokenise(i, ""))
+         
+        nettoyage(res)
         
         print(res)
     else:
