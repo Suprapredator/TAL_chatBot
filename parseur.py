@@ -60,8 +60,15 @@ def lowercase_sentence(sentence):
 	return sentence;
 
 def parsage(parole):
-    test = segment_into_sents(parole);
+    if parole != "":
+        test = segment_into_sents(parole);
+        res = []    
+        
+        for i in test:
+        	res.append(tokenise(i, ""))
+        
+        print(res)
+    else:
+        res = [[""]]
     
-    for i in test:
-    	print("resultat tokenisation:");
-    	print(tokenise(i, ""))
+    return res;
