@@ -8,8 +8,8 @@ Created on Mon Mar 26 14:37:08 2018
 import argparse
 import random
 import parseur
+from enumeration import QuestionType,Sentencetheme
 import recipe
-
 
 def discussion_mode_1(parole, old_backchannels):
     
@@ -35,7 +35,7 @@ def discussion_mode_2(parole, old_backchannels):
     health_answer = ["You're feeling good?","Have you been sick recently?"]
     family_answer = ["How is your family?","Do you think that \"family\" is important?"]
     money_answer = ["Money is your best friend in this world, isn't it?","What do you think about the congolexicalization of the laws of the market?"]
-    lazy_answer = ["Are you tired?","Where do you go last holydays?"]
+    lazy_answer = ["Are you tired?","Where did you go last holydays?"]
     hearthstone_answer = ["Do you know the lich king?","What's your level?"]
     hello_answer = ["Greetings!","HHOOWWDDYY!"]
         
@@ -91,14 +91,18 @@ def discussion_mode_2(parole, old_backchannels):
             
         return new_backchannels
 
-def discussion_mode_3(parole, old_backchannels):
-    
 
+def discussion_mode_3(parole, old_backchannels):
+    paroleP = parseur.parsage(parole)
+    Qt = QuestionType.questionType(paroleP)
+    St = Sentencetheme.questionTheme(paroleP)
+    
+    
+    
 
 # _____________________________________________________________________________
 
 if __name__ == "__main__":
-    
     print("***CUISTOBOT***\n")
     
     parser = argparse.ArgumentParser()
@@ -117,7 +121,7 @@ if __name__ == "__main__":
             elif args.mode == "2":
                 old_backchannels = discussion_mode_2(parole, old_backchannels)
             elif args.mode == "3":
-                print("lol")
+                discussion_mode_3(parole, old_backchannels)
             else:
                 print("Paramètres invalide !")
                 parole = "Au revoir."
