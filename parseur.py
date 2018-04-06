@@ -74,7 +74,7 @@ def parsage(parole):
          
         nettoyage(res)
         
-        print(res)
+        #print(res)
     else:
         res = [[""]]
     

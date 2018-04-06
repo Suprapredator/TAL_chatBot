@@ -44,7 +44,7 @@ class Sentencetheme(Enum):
     
     def questionTheme(paroleParsee):
         recipe = ["recipe","make","cook","prepare"]
-        dish = ["dish","course","speciality"]
+        dish = ["dish","course","speciality","eat"]
         
         for phrase in paroleParsee:
             for mot in phrase:
@@ -53,3 +53,20 @@ class Sentencetheme(Enum):
                 elif mot in dish:
                     return Sentencetheme.DISH
         return Sentencetheme.UNKNOW
+
+class BooleanAnswer(Enum):
+    YES = 0
+    NO = 1
+    UNKNOW = -1
+    
+    def booleanAnswer(paroleParsee):
+        yes = ["yes","ok"]
+        no = ["no","nop"]
+        
+        for phrase in paroleParsee:
+            for mot in phrase:
+                if mot in yes:
+                    return BooleanAnswer.YES
+                elif mot in no:
+                    return BooleanAnswer.NO
+        return BooleanAnswer.UNKNOW

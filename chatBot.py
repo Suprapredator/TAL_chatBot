@@ -8,8 +8,8 @@ Created on Mon Mar 26 14:37:08 2018
 import argparse
 import random
 import parseur
-from enumeration import QuestionType,Sentencetheme
-import recipe
+from enumeration import QuestionType,Sentencetheme,BooleanAnswer
+from recipe import FN_Recipe,EP_Recipe
 
 def discussion_mode_1(parole, old_backchannels):
     
@@ -20,10 +20,10 @@ def discussion_mode_1(parole, old_backchannels):
         while(old_backchannels == new_backchannels):
             new_backchannels = int(random.random()*6);
         
-        print("[ChatBot] "+backchannels[new_backchannels])
+        print("[ChatBot] "+backchannels[new_backchannels]+"\n")
         return new_backchannels
 
-def discussion_mode_2(parole, old_backchannels):
+def discussion_mode_2(parole_parser, old_backchannels):
     
     health = ["sick","ill","cancer","hurt","cold","diarrhea","disease","illness","sickness","malady"]
     family = ["dad","mom","father","mother","sister","brother","uncle","aunt","family","grandfather","grandmother"]
@@ -40,9 +40,7 @@ def discussion_mode_2(parole, old_backchannels):
     hello_answer = ["Greetings!","HHOOWWDDYY!"]
         
     compteur = [0,0,0,0,0,0]
-    new_backchannels = old_backchannels
-    parole_parser = parseur.parsage(parole)
-    
+    new_backchannels = old_backchannels    
             
     for phrase in parole_parser:
         for mot in health:
@@ -63,8 +61,6 @@ def discussion_mode_2(parole, old_backchannels):
         for mot in hello:
             compteur[5] += phrase.count(mot)
             
-        print(compteur)           
-            
         max = 0; res = -1;
         for i in range(0,len(compteur)):
             if compteur[i]>max:
@@ -75,30 +71,41 @@ def discussion_mode_2(parole, old_backchannels):
             new_backchannels = int(random.random()*2);     
         
         if res==0:
-            print("[ChatBot] "+health_answer[new_backchannels])
+            print("[ChatBot] "+health_answer[new_backchannels]+"\n")
         elif res==1:
-            print("[ChatBot] "+family_answer[new_backchannels])
+            print("[ChatBot] "+family_answer[new_backchannels]+"\n")
         elif res==2:
-            print("[ChatBot] "+money_answer[new_backchannels])
+            print("[ChatBot] "+money_answer[new_backchannels]+"\n")
         elif res==3:
-            print("[ChatBot] "+lazy_answer[new_backchannels])
+            print("[ChatBot] "+lazy_answer[new_backchannels]+"\n")
         elif res==4:
-            print("[ChatBot] "+hearthstone_answer[new_backchannels])
+            print("[ChatBot] "+hearthstone_answer[new_backchannels]+"\n")
         elif res==5:
-            print("[ChatBot] "+hello_answer[new_backchannels])
+            print("[ChatBot] "+hello_answer[new_backchannels]+"\n")
         else:
             new_backchannels = discussion_mode_1(parole, old_backchannels);
             
         return new_backchannels
 
 
-def discussion_mode_3(parole, old_backchannels):
-    paroleP = parseur.parsage(parole)
-    Qt = QuestionType.questionType(paroleP)
-    St = Sentencetheme.questionTheme(paroleP)
+def discussion_mode_3(parole_parser, old_backchannels):
+    Qt = QuestionType.questionType(parole_parser)
+    St = Sentencetheme.questionTheme(parole_parser)
     
+    if(St == Sentencetheme.UNKNOW):
+        old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
+    else:
+        if(St == Sentencetheme.RECIPE): print("[ChatBot] Do you want a recipe ?\n")
+        else: print("[ChatBot] Do you want a dish ?\n")
+        
+        answer = input()
+        
+        if(BooleanAnswer.booleanAnswer(parseur.parsage(answer))):
+            print("ok")
+        else:
+            old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     
-    
+    return old_backchannels
 
 # _____________________________________________________________________________
 
@@ -119,9 +126,11 @@ if __name__ == "__main__":
             if args.mode == "1":
                 old_backchannels = discussion_mode_1(parole, old_backchannels)
             elif args.mode == "2":
-                old_backchannels = discussion_mode_2(parole, old_backchannels)
+                parole_parser = parseur.parsage(parole)
+                old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
             elif args.mode == "3":
-                discussion_mode_3(parole, old_backchannels)
+                parole_parser = parseur.parsage(parole)
+                old_backchannels = discussion_mode_3(parole_parser, old_backchannels)
             else:
                 print("Paramètres invalide !")
                 parole = "Au revoir."
