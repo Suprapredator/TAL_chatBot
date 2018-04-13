@@ -79,3 +79,19 @@ def parsage(parole):
         res = [[""]]
     
     return res;
+    
+def parsage_data(filename):
+    my_file = open(filename,"r");
+    ligne = my_file.read();
+    #list_paragraph = ligne.replace('\n',' ');
+    liste = ligne.replace('\t','\n');
+    liste = ligne.split('\n');
+    
+    #my_file2 = open("ok.txt","w");
+    
+    #my_file2.write(list_paragraph)
+    
+    #print(liste)
+    
+    my_file.close();
+    return liste;

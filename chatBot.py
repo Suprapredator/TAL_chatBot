@@ -9,7 +9,7 @@ import argparse
 import random
 import parseur
 from enumeration import QuestionType,Sentencetheme,BooleanAnswer
-from recipe import FN_Recipe,EP_Recipe
+import mode3methods
 
 def discussion_mode_1(parole, old_backchannels):
     
@@ -88,7 +88,7 @@ def discussion_mode_2(parole_parser, old_backchannels):
         return new_backchannels
 
 
-def discussion_mode_3(parole_parser, old_backchannels):
+def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
     Qt = QuestionType.questionType(parole_parser)
     St = Sentencetheme.questionTheme(parole_parser)
     
@@ -101,7 +101,10 @@ def discussion_mode_3(parole_parser, old_backchannels):
         answer = input()
         
         if(BooleanAnswer.booleanAnswer(parseur.parsage(answer))):
-            print("ok")
+            if(St == Sentencetheme.RECIPE):
+                mode3methods.researchRecipe()
+            else:
+                mode3methods.researchDish(list_ingredient)
         else:
             old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     
@@ -115,6 +118,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('mode')
     args = parser.parse_args()
+    
+    list_ingredient = parseur.parsage_data("ingredients.txt")
     
     parole = ""
     old_backchannels = -1
@@ -130,7 +135,7 @@ if __name__ == "__main__":
                 old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
             elif args.mode == "3":
                 parole_parser = parseur.parsage(parole)
-                old_backchannels = discussion_mode_3(parole_parser, old_backchannels)
+                old_backchannels = discussion_mode_3(parole_parser, old_backchannels, list_ingredient)
             else:
                 print("Paramètres invalide !")
                 parole = "Au revoir."
