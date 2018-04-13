@@ -1,3 +1,5 @@
+import csv
+
 def segment_into_sents(paragraph):
 	list_phrase = [];
 	debut = 0;
@@ -83,15 +85,22 @@ def parsage(parole):
 def parsage_data(filename):
     my_file = open(filename,"r");
     ligne = my_file.read();
-    #list_paragraph = ligne.replace('\n',' ');
+
     liste = ligne.replace('\t','\n');
     liste = ligne.split('\n');
     
-    #my_file2 = open("ok.txt","w");
-    
-    #my_file2.write(list_paragraph)
-    
-    #print(liste)
-    
     my_file.close();
     return liste;
+
+def quelle_categorie_observee(information):
+    tab = []
+    data = open("epi_r.csv","r")
+    
+    reader = csv.reader(data, delimiter=',', quotechar='|')
+    
+    for row in reader:
+        for i in range(6,len(row)):
+            if row[i] in information:
+                tab.append(i)
+        
+        return tab
