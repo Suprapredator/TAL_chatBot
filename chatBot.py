@@ -138,8 +138,7 @@ if __name__ == "__main__":
                 old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
             elif args.mode == "3":
                 parole_parser = parseur.parsage(parole)
-                parole_parser_normaliser = mode3methods.tanslate_message(parole_parser);
-                old_backchannels = discussion_mode_3(parole_parser_normaliser, old_backchannels, list_ingredient)
+                old_backchannels = discussion_mode_3(parole_parser, old_backchannels, list_ingredient)
             else:
                 print("Paramètres invalide !")
                 parole = "Au revoir."

@@ -26,6 +26,9 @@ def researchDish(list_ingredient):
         parole = input()
         
         parole_parsee = parseur.parsage(parole)
+        print(parole_parsee)
+        parole_parsee = tanslate_message(parole_parsee)
+        print(parole_parsee)
         
         for phrase in parole_parsee:
             for mot in phrase:
@@ -55,14 +58,17 @@ def researchDish(list_ingredient):
             couple_plat_point = []
             point = 0
             
-            #print(row[0]+" "+str(iteration)+" "+str(len(row)))
-            for i in categories:
-                point += int(row[i][0])
+            print(row[0]+" "+str(iteration)+" "+str(len(row[0]))+" "+str(len(row)))
             
-            if point >= int(len(categories)) and point > 0:
-                couple_plat_point.append(row[0])
-                couple_plat_point.append(point)
-                resultat.append(couple_plat_point)
+            if len(row[0]) != 0:
+                for i in categories:
+                    point += int(row[i][0])
+                
+                if point >= int(len(categories)) and point > 0:
+                    couple_plat_point.append(row[0])
+                    couple_plat_point.append(point)
+                    couple_plat_point.append(iteration+1)
+                    resultat.append(couple_plat_point)
             iteration += 1
 
         
