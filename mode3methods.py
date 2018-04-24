@@ -50,8 +50,7 @@ def researchDish(list_ingredient):
     for row in reader:
         if iteration == 0:
             iteration += 1
-            for i in categories:
-                print(row[i])
+
         else:
             couple_plat_point = []
             point = 0

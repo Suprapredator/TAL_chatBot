@@ -10,6 +10,8 @@ import random
 import parseur
 from enumeration import QuestionType,Sentencetheme,BooleanAnswer
 import mode3methods
+import csv
+import json
 
 def discussion_mode_1(parole, old_backchannels):
     
@@ -113,6 +115,12 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
 # _____________________________________________________________________________
 
 if __name__ == "__main__":
+
+    d_reader = csv.DictReader(open('epi_r.csv', 'r'))
+
+    for row in d_reader:
+        print (row["title"])    
+    
     print("***CUISTOBOT***\n")
     
     parser = argparse.ArgumentParser()
