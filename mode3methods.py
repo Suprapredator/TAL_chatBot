@@ -64,7 +64,8 @@ def researchDish(list_ingredient):
                 for i in categories:
                     point += int(row[i][0])
                 
-                if point >= int(len(categories)) and point > 0:
+                #if point >= int(len(categories)) and point > 0:
+                if point == len(categories):
                     couple_plat_point.append(row[0])
                     couple_plat_point.append(point)
                     couple_plat_point.append(iteration+1)
