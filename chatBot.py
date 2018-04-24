@@ -115,11 +115,6 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
 # _____________________________________________________________________________
 
 if __name__ == "__main__":
-
-    d_reader = csv.DictReader(open('epi_r.csv', 'r'))
-
-    for row in d_reader:
-        print (row["title"])    
     
     print("***CUISTOBOT***\n")
     
@@ -143,7 +138,8 @@ if __name__ == "__main__":
                 old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
             elif args.mode == "3":
                 parole_parser = parseur.parsage(parole)
-                old_backchannels = discussion_mode_3(parole_parser, old_backchannels, list_ingredient)
+                parole_parser_normaliser = mode3methods.tanslate_message(parole_parser);
+                old_backchannels = discussion_mode_3(parole_parser_normaliser, old_backchannels, list_ingredient)
             else:
                 print("Paramètres invalide !")
                 parole = "Au revoir."
