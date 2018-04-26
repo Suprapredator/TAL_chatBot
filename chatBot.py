@@ -22,7 +22,7 @@ def discussion_mode_1(parole, old_backchannels):
         while(old_backchannels == new_backchannels):
             new_backchannels = int(random.random()*6);
         
-        print("[ChatBot] "+backchannels[new_backchannels]+"\n")
+        print("[CuistoBot] "+backchannels[new_backchannels]+"\n")
         return new_backchannels
 
 def discussion_mode_2(parole_parser, old_backchannels):
@@ -73,17 +73,17 @@ def discussion_mode_2(parole_parser, old_backchannels):
             new_backchannels = int(random.random()*2);     
         
         if res==0:
-            print("[ChatBot] "+health_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+health_answer[new_backchannels]+"\n")
         elif res==1:
-            print("[ChatBot] "+family_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+family_answer[new_backchannels]+"\n")
         elif res==2:
-            print("[ChatBot] "+money_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+money_answer[new_backchannels]+"\n")
         elif res==3:
-            print("[ChatBot] "+lazy_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+lazy_answer[new_backchannels]+"\n")
         elif res==4:
-            print("[ChatBot] "+hearthstone_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+hearthstone_answer[new_backchannels]+"\n")
         elif res==5:
-            print("[ChatBot] "+hello_answer[new_backchannels]+"\n")
+            print("[CuistoBot] "+hello_answer[new_backchannels]+"\n")
         else:
             new_backchannels = discussion_mode_1(parole, old_backchannels);
             
@@ -97,8 +97,8 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
     if(St == Sentencetheme.UNKNOW):
         old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     else:
-        if(St == Sentencetheme.RECIPE): print("[ChatBot] Do you want a recipe ?\n")
-        else: print("[ChatBot] Do you want a dish ?\n")
+        if(St == Sentencetheme.RECIPE): print("[CuistoBot] Do you want a recipe ?\n")
+        else: print("[CuistoBot] Do you want a dish ?\n")
         
         answer = input()
         
@@ -144,4 +144,4 @@ if __name__ == "__main__":
                 parole = "Au revoir."
         
         if(parole == "Bye."):
-            print("[ChatBot] "+"Bye.")   
+            print("[CuistoBot] "+"Bye.")   
