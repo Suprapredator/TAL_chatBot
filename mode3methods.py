@@ -192,29 +192,36 @@ def DishInformationQuery(resultat):
                     choices[2] = True
                 if mot == "calorie":
                     choices[3] = True
-                if mot == "Salt":
+                if mot == "salt":
                     choices[4] = True
         
         if True not in choices:
-            print("[CuistoBot] I didn't understand what you said.\n")
+            print("[CuistoBot] I didn't understand what you said. Repeat please.\n")
         else:
             ok = False
+            
+    print(resultat[plat-1][2])
     
     if choices[0]:
         print("[CuistoBot] Here the recipe:\n")
-        accessJsonMethods.recettePlat(resultat[1],data)
+        accessJsonMethods.recettePlat(resultat[plat-1][2],data)
+        print()
     if choices[1]:
         print("[CuistoBot] Here the description:\n")
-        accessJsonMethods.descriptionPlat(resultat[1],data)
+        accessJsonMethods.descriptionPlat(resultat[plat-1][2],data)
+        print()
     if choices[2]:
         print("[CuistoBot] Here the list of ingredients:\n")
-        accessJsonMethods.listeIngredients(resultat[1],data)
+        accessJsonMethods.listeIngredients(resultat[plat-1][2],data)
+        print()
     if choices[3]:
         print("[CuistoBot] Here the calorie value:\n")
-        accessJsonMethods.caloriesPlat(resultat[1],data)
+        accessJsonMethods.caloriesPlat(resultat[plat-1][2],data)
+        print()
     if choices[4]:
         print("[CuistoBot] Here the salt value:\n")
-        accessJsonMethods.sodiumPlat(resultat[1],data)
+        accessJsonMethods.sodiumPlat(resultat[plat-1][2],data)
+        print()
 
 def WhichDish(resultat, parole_parsee):
     plat = -1
