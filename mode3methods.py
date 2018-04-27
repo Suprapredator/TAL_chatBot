@@ -148,7 +148,8 @@ def DishInformationQuery(resultat):
     
     # Permet d'enlever le caractere " en debut de chaine, car il gene par la suite sinon.
     for plat in resultat:
-        plat[0] = plat[0][1:]
+        if plat[0][0] == '\"':
+            plat[0] = plat[0][1:]
     
     print("[CuistoBot] Here all dishes, I have found:")
     for plat in resultat:
@@ -192,7 +193,7 @@ def DishInformationQuery(resultat):
                     choices[2] = True
                 if mot == "calorie":
                     choices[3] = True
-                if mot == "salt":
+                if mot == "saHere the salt valuelt":
                     choices[4] = True
         
         if True not in choices:
@@ -222,6 +223,11 @@ def DishInformationQuery(resultat):
         print("[CuistoBot] Here the salt value:\n")
         accessJsonMethods.sodiumPlat(resultat[plat-1][2],data)
         print()
+        
+    print("[CuistoBot] There are many dishes, maybe you want more information about the others?\n")
+    parole_parsee = parseur.parsage(input())
+    if BooleanAnswer.booleanAnswer(parole_parsee) == BooleanAnswer.YES:
+        DishInformationQuery(resultat)
 
 def WhichDish(resultat, parole_parsee):
     plat = -1
