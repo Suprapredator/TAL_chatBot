@@ -91,23 +91,20 @@ def discussion_mode_2(parole_parser, old_backchannels):
 
 
 def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
-    Qt = QuestionType.questionType(parole_parser)
     St = Sentencetheme.questionTheme(parole_parser)
     
     if(St == Sentencetheme.UNKNOW):
         old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     else:
-        if(St == Sentencetheme.RECIPE): print("[CuistoBot] Do you want a recipe ?\n")
-        else: print("[CuistoBot] Do you want a dish ?\n")
+        print("[CuistoBot] Do you want a dish ?\n")
         
         answer = input()
         
-        if(BooleanAnswer.booleanAnswer(parseur.parsage(answer))):
-            if(St == Sentencetheme.RECIPE):
-                mode3methods.researchRecipe()
-            else:
-                resultat = mode3methods.researchDish(list_ingredient)
-                mode3methods.DishInformationQuery(resultat)
+        if(BooleanAnswer.booleanAnswer(parseur.parsage(answer)) == BooleanAnswer.YES):
+            resultat = mode3methods.researchDish(list_ingredient)
+            mode3methods.DishInformationQuery(resultat)
+        elif(BooleanAnswer.booleanAnswer(parseur.parsage(answer)) == BooleanAnswer.NO):
+            print("[CuistoBot] Ok. =)\n")
         else:
             old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     

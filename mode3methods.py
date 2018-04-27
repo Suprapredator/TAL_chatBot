@@ -193,7 +193,7 @@ def DishInformationQuery(resultat):
                     choices[2] = True
                 if mot == "calorie":
                     choices[3] = True
-                if mot == "saHere the salt valuelt":
+                if mot == "salt":
                     choices[4] = True
         
         if True not in choices:
@@ -228,6 +228,8 @@ def DishInformationQuery(resultat):
     parole_parsee = parseur.parsage(input())
     if BooleanAnswer.booleanAnswer(parole_parsee) == BooleanAnswer.YES:
         DishInformationQuery(resultat)
+    else:
+        print("[CuistoBot] Ok, what do you want to talk about?\n")
 
 def WhichDish(resultat, parole_parsee):
     plat = -1

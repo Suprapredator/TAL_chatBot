@@ -38,19 +38,15 @@ class QuestionType(Enum):
         return QuestionType.NO_QUESTION
 
 class Sentencetheme(Enum):
-    RECIPE = 0
     DISH = 1
     UNKNOW = -1
     
     def questionTheme(paroleParsee):
-        recipe = ["recipe","make","cook","prepare"]
-        dish = ["dish","course","speciality","eat"]
+        dish = ["dish","course","speciality","eat","recipe","make","cook","prepare"]
         
         for phrase in paroleParsee:
             for mot in phrase:
-                if mot in recipe:
-                    return Sentencetheme.RECIPE
-                elif mot in dish:
+                if mot in dish:
                     return Sentencetheme.DISH
         return Sentencetheme.UNKNOW
 
