@@ -106,7 +106,8 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
             if(St == Sentencetheme.RECIPE):
                 mode3methods.researchRecipe()
             else:
-                mode3methods.researchDish(list_ingredient)
+                resultat = mode3methods.researchDish(list_ingredient)
+                mode3methods.DishInformationQuery(resultat)
         else:
             old_backchannels = discussion_mode_2(parole_parser, old_backchannels)
     
@@ -114,8 +115,7 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
 
 # _____________________________________________________________________________
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":       
     print("***CUISTOBOT***\n")
     
     parser = argparse.ArgumentParser()

@@ -8,13 +8,36 @@ Created on Fri Apr  6 12:10:50 2018
 from enumeration import BooleanAnswer
 import parseur
 import csv
+import json
+import accessJsonMethods
+
+def questionNumber(paroleParsee):
+        first = ["one","first","1"]
+        second = ["two","second","2"]
+        third = ["three","third","3"]
+        fourth = ["four","fourth","4"]
+        fifth = ["five","fifth","5"]
+        
+        for phrase in paroleParsee:
+            for mot in phrase:
+                if mot in first:
+                    return 1
+                elif mot in second:
+                    return 2
+                elif mot in third:
+                    return 3
+                elif mot in fourth:
+                    return 4
+                elif mot in fifth:
+                    return 5
+        return -1
 
 def researchRecipe():
     i=0
 
 def AskingDishQuery(list_ingredient):
     iteration = 0
-    i = BooleanAnswer.NO
+    i = BooleanAnswer.UNKNOW
     liste_information = []
     
     print("[CuistoBot] Please, describe what type of dish do you want. (ingredient, cooking method, adjective, etc.)\n")    
@@ -24,7 +47,7 @@ def AskingDishQuery(list_ingredient):
             print("[CuistoBot] Is that all?\n")
         elif iteration%2 == 1 and i == BooleanAnswer.UNKNOW:
             print("[CuistoBot] Ok, Have you finished?\n")
-        elif i == BooleanAnswer.NO:
+        elif i == BooleanAnswer.NO and iteration != 0:
             print("[CuistoBot] Ok, what else?\n")
 
         parole = input()
@@ -52,7 +75,7 @@ def AskingDishQueryReaction(liste_information):
     print("[CuistoBot] Hm... So I gonna check a delicious dish with these caracteristics:")    
     
     if len(liste_information) == 0:
-        print("[CuistoBot] Huh!?.... I'm terribly sorry, but I didn't find any valuable information in your answers.")
+        print("[CuistoBot] Huh!?.... I'm terribly sorry, but iteration != 0I didn't find any valuable information in your answers.")
         print("[CuistoBot] Maybe, you should repeat... with more... accurate criteria.")
         return True
     else:
@@ -78,12 +101,12 @@ def DishResultReaction(resultat, list_ingredient):
         else:
             return researchDish(list_ingredient)           
 
-    elif len(resultat) > 0 and len(resultat) < 10:
+    elif len(resultat) > 0 and len(resultat) <= 5:
         print("[CuistoBot] Ok good, I have found "+str(len(resultat))+" dishes. \(^^)/\n")
         return resultat
     else:
-        print("[CuistoBot] Ok good, I have found "+str(len(resultat))+" dishes. It's a bigger number! I'll take only 10 dishes, it will be better. \(^^)/\n")
-        return resultat
+        print("[CuistoBot] Ok good, I have found "+str(len(resultat))+" dishes. It's a big number! I'll take only 5 dishes, it will be better. \(^^)/\n")
+        return resultat[0:5]
 
 def researchDish(list_ingredient):
     liste_information = AskingDishQuery(list_ingredient)
@@ -119,6 +142,97 @@ def researchDish(list_ingredient):
             iteration += 1
             
     return DishResultReaction(resultat, list_ingredient)
+
+def DishInformationQuery(resultat):
+    data = json.load(open('full_format_recipes.json'))    
+    
+    # Permet d'enlever le caractere " en debut de chaine, car il gene par la suite sinon.
+    for plat in resultat:
+        plat[0] = plat[0][1:]
+    
+    print("[CuistoBot] Here all dishes, I have found:")
+    for plat in resultat:
+        print(" "+plat[0])
+    print("[CuistoBot] Which dish do you want?")
+    
+    ok = True
+    while(ok):
+        parole_parsee = parseur.parsage(input())
+        
+        if questionNumber(parole_parsee) == -1:
+            plat = WhichDish(resultat, parole_parsee)
+            if plat < 1 or plat > len(resultat):
+                print("[CuistoBot] So the dish number.... but it doesn't exist -_-. Give me a dish which is in the list below.\n")
+            else:
+                print("[CuistoBot] So the dish number "+str(plat)+".\n")
+                ok = False
+        else:
+            plat = questionNumber(parole_parsee)
+            if  plat > len(resultat):
+                print("[CuistoBot] So the dish number "+str(plat)+".... but it doesn't exist -_-. Give me a dish which is in the list below.\n")
+            else:
+                 print("[CuistoBot] So the dish number "+str(plat)+".\n")
+                 ok = False
+    
+    print("[CuistoBot] What do you want to know about "+str(resultat[plat-1][0])+"? Recipe? A description? List of ingredients? Calorie value? Salt value?\n")
+        
+    ok = True
+    while(ok):
+        parole_parsee = parseur.parsage(input())
+        
+        choices = [False,False,False,False,False,False]
+        
+        for phrase in parole_parsee:
+            for mot in phrase:
+                if mot == "recipe":
+                    choices[0] = True
+                if mot == "description":
+                    choices[1] = True
+                if mot == "list" or mot == "ingredient" or mot == "ingredients":
+                    choices[2] = True
+                if mot == "calorie":
+                    choices[3] = True
+                if mot == "Salt":
+                    choices[4] = True
+        
+        if True not in choices:
+            print("[CuistoBot] I didn't understand what you said.\n")
+        else:
+            ok = False
+    
+    if choices[0]:
+        print("[CuistoBot] Here the recipe:\n")
+        accessJsonMethods.recettePlat(resultat[1],data)
+    if choices[1]:
+        print("[CuistoBot] Here the description:\n")
+        accessJsonMethods.descriptionPlat(resultat[1],data)
+    if choices[2]:
+        print("[CuistoBot] Here the list of ingredients:\n")
+        accessJsonMethods.listeIngredients(resultat[1],data)
+    if choices[3]:
+        print("[CuistoBot] Here the calorie value:\n")
+        accessJsonMethods.caloriesPlat(resultat[1],data)
+    if choices[4]:
+        print("[CuistoBot] Here the salt value:\n")
+        accessJsonMethods.sodiumPlat(resultat[1],data)
+
+def WhichDish(resultat, parole_parsee):
+    plat = -1
+    ressemblancemax = 0
+    ressemblance = 0
+    
+    for i in range(0,len(resultat)):
+        ressemblance = 0 
+        for phrase in parseur.parsage(resultat[i][0]):
+            for mot in phrase:
+                for phrase2 in parole_parsee:
+                    for mot2 in phrase2:
+                        if mot == mot2:
+                            ressemblance += 1
+            if ressemblance > ressemblancemax:
+                ressemblancemax = ressemblance
+                plat = i
+    return plat+1
 
 def tanslate_message(parole):
     
