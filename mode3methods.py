@@ -11,6 +11,8 @@ import csv
 import json
 import accessJsonMethods
 
+# Fonction utile lorsque l'on attend un nombre entre 1 et 5 de l'utilisateur.
+# Il cherche dans un message des mots permettant de déduire sa réponse.
 def questionNumber(paroleParsee):
         first = ["one","first","1"]
         second = ["two","second","2"]
@@ -32,9 +34,8 @@ def questionNumber(paroleParsee):
                     return 5
         return -1
 
-def researchRecipe():
-    i=0
-
+# Fonction ayant pour but de demander à l'utilisateur des informations consernant son plat et de stocker les informations utiles.
+# Ainsi, dans le message "I want a cake with apples.", nous ne concervons que "cake" et "apple".
 def AskingDishQuery(list_ingredient):
     iteration = 0
     i = BooleanAnswer.UNKNOW
@@ -71,6 +72,8 @@ def AskingDishQuery(list_ingredient):
     
     return liste_information
 
+# Cette fonction sert de transition entre la recolte d'information sur un plat et la recherche dans le .csv.
+# Elle renvoie True si nous n'avons pas assez d'éléments pour effectuer une recherche. False, sinon.
 def AskingDishQueryReaction(liste_information):
     print("[CuistoBot] Hm... So I gonna check a delicious dish with these caracteristics:")    
     
@@ -86,6 +89,8 @@ def AskingDishQueryReaction(liste_information):
         print("[CuistoBot] Let me 2ms, I'm checking my cooking book.")
         return False
 
+# Cette fonction sert de transition entre la recherche dans le .csv et l'analyse du résultat de la recherche.
+# Ici le bot fera des commentaires sur les resultats et demandera si l'utilisateur veut continuer.
 def DishResultReaction(resultat, list_ingredient):
     if len(resultat) == 0:
         print("[CuistoBot] Hey, it's interesting! Your choices are really original!...............")
@@ -108,12 +113,16 @@ def DishResultReaction(resultat, list_ingredient):
         print("[CuistoBot] Ok good, I have found "+str(len(resultat))+" dishes. It's a big number! I'll take only 5 dishes, it will be better. \(^^)/\n")
         return resultat[0:5]
 
+# Fonction principale du mode 3. C'est ici qu'on appellera les autres fonctions de ce fichier.
 def researchDish(list_ingredient):
+    
+    # Partie recherche d'information sur le plat
     liste_information = AskingDishQuery(list_ingredient)
     
     while(AskingDishQueryReaction(liste_information)):
         liste_information = AskingDishQuery(list_ingredient)
     
+    # Partie recherche dans le .csv en fonction des informations récoltees.
     resultat = []
     iteration = 0
     reader = csv.reader(open("epi_r.csv","r"), delimiter=',', quotechar='|')
@@ -127,22 +136,23 @@ def researchDish(list_ingredient):
             couple_plat_point = []
             point = 0
             
-            #print(row[0]+" "+str(iteration)+" "+str(len(row[0]))+" "+str(len(row)))
-            
             if len(row[0]) != 0:
                 for i in categories:
                     point += int(row[i][0])
-                
-                #if point >= int(len(categories)) and point > 0:
+
                 if point > int(len(categories)/2):
                     couple_plat_point.append(row[0])
                     couple_plat_point.append(point)
                     couple_plat_point.append(iteration+1)
                     resultat.append(couple_plat_point)
             iteration += 1
-            
+    
+    # Partie analyse du résultat.
     return DishResultReaction(resultat, list_ingredient)
 
+# Fonction servant à l'affichage des informations d'un ou plusieurs plats à la suite.
+# Le bot pose plusieurs question pour savoir ce que l'utilisateur veut savoir sur le plat.
+# Puis recommence une recherche ou non.
 def DishInformationQuery(resultat):
     data = json.load(open('full_format_recipes.json'))    
     
@@ -231,6 +241,9 @@ def DishInformationQuery(resultat):
     else:
         print("[CuistoBot] Ok, what do you want to talk about?\n")
 
+# Fonction permettant de trouver un plat dans un liste en fonction d'un message utilisateur.
+# Il compare toutes les noms des plats dans la liste et prend celui qui a le plus de ressemblance avec le message.
+# Si rien n'est trouvé, il retourne 0.
 def WhichDish(resultat, parole_parsee):
     plat = -1
     ressemblancemax = 0
@@ -249,6 +262,8 @@ def WhichDish(resultat, parole_parsee):
                 plat = i
     return plat+1
 
+# Fonction servant à changer les mots au pluriel (ou sous une forme complexe) en une forme simple pour qu'elle soit reconnue comme critère de recherche.
+# Par exemple : nous avons un critère de recherche "apple" dans le .csv. Ainsi, si le message est "I want apples", cela donnere "I want apple".
 def tanslate_message(parole):
     
     for phrase in parole:

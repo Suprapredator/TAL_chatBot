@@ -7,6 +7,8 @@ Created on Fri Apr  6 09:53:08 2018
 
 from enum import Enum
 
+# Permet de savoir si un message est une question ou non, si oui de quel type.
+# Inutilisé actuellement mais utile pour de futurs améliorations.
 class QuestionType(Enum):
     WHAT = 0
     HOW = 1
