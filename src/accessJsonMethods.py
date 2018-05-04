@@ -1,7 +1,12 @@
 import json
 
+#Fonctions pour afficher les informations contenues dans le fichier .json
+#Ligne désigne la ligne ou se trouve le plat dans le .csv
+#data est le lecteur du fichier .json qu'on a deja ouvert.
+
+#Affiche la liste des ingredients
 def listeIngredients(ligne, data):
-	i = 2
+	i = 2 #decalage initial
 	for plat in data["meal"]:
 		if i==ligne:
 			for aliment in plat["ingredients"]:
@@ -9,7 +14,8 @@ def listeIngredients(ligne, data):
 				
 		i+=1
 		
-	
+
+#Affiche la description du plat
 def descriptionPlat(ligne, data):
 	i=2
 	for plat in data["meal"]:
@@ -19,7 +25,8 @@ def descriptionPlat(ligne, data):
 			else:
 				print(plat["desc"])
 		i+=1
-		
+
+#Affiche la recette du plat		
 def recettePlat(ligne, data):
 	i = 2
 	for plat in data["meal"]:
@@ -29,6 +36,7 @@ def recettePlat(ligne, data):
 				
 		i+=1
 
+#Affiche la quantité de gras dans le plat
 def fatPlat(ligne, data):
 	i=2
 	for plat in data["meal"]:
@@ -36,6 +44,7 @@ def fatPlat(ligne, data):
 			print(plat["fat"])
 		i+=1
 
+#Affiche le nombre de calories dans le plat
 def caloriesPlat(ligne, data):
 	i=2
 	for plat in data["meal"]:
@@ -43,6 +52,7 @@ def caloriesPlat(ligne, data):
 			print(plat["calories"])
 		i+=1
 
+#Affiche la quantité de sel dans le plat
 def sodiumPlat(ligne, data):
 	i=2
 	for plat in data["meal"]:
@@ -50,6 +60,3 @@ def sodiumPlat(ligne, data):
 			print(plat["sodium"])
 		i+=1
 		
-data = json.load(open('full_format_recipes.json'))
-#ingredients = listeIngredients(11,data)
-descriptionPlat(20126,data)
