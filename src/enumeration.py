@@ -39,6 +39,9 @@ class QuestionType(Enum):
                         return QuestionType.HOW
         return QuestionType.NO_QUESTION
 
+# Enumération utilisée pour lancer le mode 3.
+# Son fonctionnement est identique au mode 2 : si on reconnait un mot dans la liste alors le message appartient au theme.
+# Comme nous avons une enumeration, nous pourvons ajouter d'autres themes qui pouront être utile par la suite.
 class Sentencetheme(Enum):
     DISH = 1
     UNKNOW = -1
@@ -52,6 +55,7 @@ class Sentencetheme(Enum):
                     return Sentencetheme.DISH
         return Sentencetheme.UNKNOW
 
+# Fonction permettant de savoir si un message est affirmatif ou négatif.
 class BooleanAnswer(Enum):
     YES = 0
     NO = 1

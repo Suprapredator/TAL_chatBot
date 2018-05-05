@@ -13,11 +13,15 @@ import mode3methods
 import csv
 import json
 
+# Fonction pour le mode 1
+# old_backchannels permet d'éviter que le bot ne se répète.
 def discussion_mode_1(parole, old_backchannels):
     
+    # La liste des réponses pour le bot
     backchannels = ["hm...","I see.","Indeed.","I agree.","ZzZzZzZz.","\"Quand l'appétit va, tout va !\" Obélix 1968"]
     new_backchannels = old_backchannels
-        
+    
+    # Si l'utilisateur veut partir, alors le bot ne dira pas de backchannel.
     if(parole != "Bye."):
         while(old_backchannels == new_backchannels):
             new_backchannels = int(random.random()*6);
@@ -27,20 +31,23 @@ def discussion_mode_1(parole, old_backchannels):
 
 def discussion_mode_2(parole_parser, old_backchannels):
     
+    # Ensemble des themes avec la liste de mots correspondant
     health = ["sick","ill","cancer","hurt","cold","diarrhea","disease","illness","sickness","malady"]
     family = ["dad","mom","father","mother","sister","brother","uncle","aunt","family","grandfather","grandmother"]
-    money = ["dollars","euros","rich","salary","gold","silver","spend","bank","coin","bill"]
+    money = ["dollars","euros","rich","salary","gold","silver","money","bank","coin","bill"]
     lazy = ["bed","sleep","holydays","lazy","slackness","work","hard","tired","tiresome"]
     hearthstone = ["card","play","quest","package","deck","minion","hero","power","hearthstone"]
     hello = ["hello","hi","hey","yo","dear","afternoon","morning","greetings","up","howdy"]
     
+    # Les réponses pour chaque theme precedent.
     health_answer = ["You're feeling good?","Have you been sick recently?"]
     family_answer = ["How is your family?","Do you think that \"family\" is important?"]
     money_answer = ["Money is your best friend in this world, isn't it?","What do you think about the congolexicalization of the laws of the market?"]
     lazy_answer = ["Are you tired?","Where did you go last holydays?"]
     hearthstone_answer = ["Do you know the lich king?","What's your level?"]
     hello_answer = ["Greetings!","HHOOWWDDYY!"]
-        
+      
+    # Le compteur permet de savoir quel theme nous allons dire en priorité. (plus il y a de mots associés au theme X dans le message, plus celui-ci sera prioritaire.)
     compteur = [0,0,0,0,0,0]
     new_backchannels = old_backchannels    
             
@@ -69,6 +76,7 @@ def discussion_mode_2(parole_parser, old_backchannels):
                 res = i
                 max = compteur[i]
         
+        # Evite la répétition
         while(old_backchannels == new_backchannels):
             new_backchannels = int(random.random()*2);     
         
@@ -89,7 +97,7 @@ def discussion_mode_2(parole_parser, old_backchannels):
             
         return new_backchannels
 
-
+# Fonction du mode 3
 def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
     St = Sentencetheme.questionTheme(parole_parser)
     
@@ -113,6 +121,8 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
 
 # _____________________________________________________________________________
 
+# Fonction principale
+# composée d'une boucle infinie pour simuler le dialogue avec le bot. Pour la faire arreter, il faut dire "Bye."
 if __name__ == "__main__":       
     print("***CUISTOBOT***\n")
     
