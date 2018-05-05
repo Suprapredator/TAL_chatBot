@@ -78,7 +78,7 @@ def AskingDishQueryReaction(liste_information):
     print("[CuistoBot] Hm... So I gonna check a delicious dish with these caracteristics:")    
     
     if len(liste_information) == 0:
-        print("[CuistoBot] Huh!?.... I'm terribly sorry, but iteration != 0I didn't find any valuable information in your answers.")
+        print("[CuistoBot] Huh!?.... I'm terribly sorry, but I didn't find any valuable information in your answers.")
         print("[CuistoBot] Maybe, you should repeat... with more... accurate criteria.")
         return True
     else:
@@ -101,11 +101,11 @@ def DishResultReaction(resultat, list_ingredient):
             print("[CuistoBot] I didn't understand. Can you repeat, please?\n")
             i = BooleanAnswer.booleanAnswer(parseur.parsage(input()))
 
-        if BooleanAnswer.booleanAnswer(parseur.parsage(input())) == BooleanAnswer.NO:
+        if i == BooleanAnswer.NO:
             return resultat
         else:
             return researchDish(list_ingredient)           
-
+            
     elif len(resultat) > 0 and len(resultat) <= 5:
         print("[CuistoBot] Ok good, I have found "+str(len(resultat))+" dishes. \(^^)/\n")
         return resultat
@@ -210,8 +210,6 @@ def DishInformationQuery(resultat):
             print("[CuistoBot] I didn't understand what you said. Repeat please.\n")
         else:
             ok = False
-            
-    print(resultat[plat-1][2])
     
     if choices[0]:
         print("[CuistoBot] Here the recipe:\n")

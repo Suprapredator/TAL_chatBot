@@ -102,7 +102,8 @@ def discussion_mode_3(parole_parser, old_backchannels, list_ingredient):
         
         if(BooleanAnswer.booleanAnswer(parseur.parsage(answer)) == BooleanAnswer.YES):
             resultat = mode3methods.researchDish(list_ingredient)
-            mode3methods.DishInformationQuery(resultat)
+            if len(resultat) > 0:
+                mode3methods.DishInformationQuery(resultat)
         elif(BooleanAnswer.booleanAnswer(parseur.parsage(answer)) == BooleanAnswer.NO):
             print("[CuistoBot] Ok. =)\n")
         else:

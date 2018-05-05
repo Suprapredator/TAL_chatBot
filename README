@@ -1,2 +1,60 @@
 # TAL_chatBot
 projet de TAL
+
+La ligne de commande pour executer le programme est :
+	python3 chatBot.py X
+Avec X le mode que vous voulez tester. Vous aurez donc :
+
+Pour le mode 1 :	python3 chatBot.py 1
+Pour le mode 2 :	python3 chatBot.py 2
+Pour le mode 3 :	python3 chatBot.py 3
+
+Voici un exemple de conversation avec le bot avec quelques commentaires:
+
+Hello.
+[CuistoBot] Greetings!		//Ici, le mode 2 sur le theme de "saluer".
+
+I like gold and silver.
+[CuistoBot] What do you think about the congolexicalization of the laws of the market?		//mode 2 sur le theme de "l'argent"
+
+jfdsjdijsdg
+[CuistoBot] Indeed.		// Mode 1
+
+I want to eat.
+[CuistoBot] Do you want a dish ?		// Début mode 3
+
+yes
+[CuistoBot] Please, describe what type of dish do you want. (ingredient, cooking method, adjective, etc.)
+
+I want bananas with meat and eggs.
+[CuistoBot] Ok, Have you finished?
+
+yes
+[CuistoBot] Hm... So I gonna check a delicious dish with these caracteristics:
+[CuistoBot] banana meat egg 
+[CuistoBot] Let me 2ms, I'm checking my cooking book.
+[CuistoBot] Ok good, I have found 33 dishes. It's a big number! I'll take only 5 dishes, it will be better. \(^^)/
+
+[CuistoBot] Here all dishes, I have found:
+ Spiced Banana Ice Cream 
+ Banana-Stuffed French Toast 
+ Banana Cake with Sour Cream Frosting 
+ Trifle with Strawberries and Caramel-Coated Bananas 
+ Bibimbap 
+[CuistoBot] Which dish do you want?
+The first one
+[CuistoBot] So the dish number 1.
+
+[CuistoBot] What do you want to know about Spiced Banana Ice Cream ? Recipe? A description? List of ingredients? Calorie value? Salt value?
+
+Give me the recipe, plse.
+[CuistoBot] Here the recipe:
+
+Stir together cream, milk, brown sugar, cinnamon stick, star anise, nutmeg, cardamom, white pepper, and a pinch of salt in a 2- to 3-quart heavy saucepan. Scrape seeds from vanilla bean into cream mixture, then add pod. Purée banana in a food processor, then whisk into cream mixture. Bring just to a boil, stirring occasionally. Remove from heat and let stand, covered, 30 minutes.
+Return to a boil, uncovered. Meanwhile, whisk together yolks in a large metal bowl. Add boiling-hot cream mixture in a slow stream, whisking constantly, then pour into saucepan. Cook over moderately low heat, stirring constantly with a wooden spoon, until custard is thick enough to coat back of spoon and registers 170 to 175°F on thermometer (do not let boil). Remove from heat and force custard through a fine-mesh sieve into a clean metal bowl, discarding solids. Set bowl in a larger bowl of ice water and let stand, stirring occasionally, until cold, about 30 minutes.
+Freeze custard in ice cream maker, then transfer to an airtight container and harden in freezer, about 1 hour. Let soften in refrigerator 1 to 1 1/2 hours and then at room temperature 10 minutes.
+
+[CuistoBot] There are many dishes, maybe you want more information about the others?
+
+no
+
